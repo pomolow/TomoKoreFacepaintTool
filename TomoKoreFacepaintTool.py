@@ -57,7 +57,7 @@ def png_2_canvas(imagePath, useSrgb = False):
             img = gammaedit(img,2.2)
         img = img.convert('RGBA')
         convertImg = img.tobytes('raw')
-        savepath = imagePath.with_name(imagePath.stem + "OUTPUT.canvas")
+        savepath = imagePath.with_name("UgcFacePaint000.canvas")
         gob_w, gob_h = 1, 1
         bytes_per_block = 4
         swizzle_mode = 4
@@ -115,7 +115,7 @@ def png_2_ugctex(imagePath, useSrgb = False):
     dds_bytes = io.BytesIO()
     img.save(dds_bytes,format='DDS',pixel_format='DXT1')
 
-    savepath = imagePath.with_name(imagePath.stem + "OUTPUT.ugctex")
+    savepath = imagePath.with_name("UgcFacePaint000.ugctex")
     gob_w, gob_h = 4, 4
     bytes_per_block = 8
     swizzle_mode = 4
