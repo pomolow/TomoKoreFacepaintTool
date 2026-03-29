@@ -173,11 +173,15 @@ while True:
 
             while True:
                 try:
-                    png2type = int(input("What file will you convert this png to?\n1. Canvas\n2. UgcTex\nSelect an option: "))
+                    png2type = int(input("What file will you convert this png to?\n1. Canvas\n2. UgcTex\n Both\n3Select an option: "))
                     if png2type == 1:
                         png_2_canvas(imagePath,useSrgb)
                         break
                     elif png2type == 2:
+                        png_2_ugctex(imagePath,useSrgb)
+                        break
+                    elif png2type == 3:
+                        png_2_canvas(imagePath,useSrgb)
                         png_2_ugctex(imagePath,useSrgb)
                         break
                     else:
