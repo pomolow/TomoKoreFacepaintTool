@@ -124,18 +124,15 @@ def png_2_ugctex(imagePath, useSrgb=False):
                     print('Invalid input. Please provide a number from 1 to 3.')
             except ValueError:
                 print('woah man can you input a number please?')
-
-    if image_res == 3:
-        return
-
-    if image_res == 1:
-        img = img.resize(convert_size, 1)
-    elif image_res == 2:
-        img = ImageOps.fit(img, convert_size)
-
-    if not useSrgb:
-        img = gammaedit(img, 2.2)
-
+                
+    if image_res != 3:
+        if image_res == 1:
+            img = img.resize(convert_size, 1)
+        elif image_res == 2:
+            img = ImageOps.fit(img, convert_size)
+        if not use_srgb:
+            img = gammaedit(img,2.2)
+            
     dds_bytes = io.BytesIO()
     img.save(dds_bytes, format='DDS', pixel_format='DXT1')
 
