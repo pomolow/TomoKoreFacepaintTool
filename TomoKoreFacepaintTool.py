@@ -103,7 +103,7 @@ def ugctex_2_png(img):
 def ugctex_thumb_2_png(img):
     convert_size = (512, 512)
     gob_w, gob_h = 4, 4
-    bytes_per_block = 8
+    bytes_per_block = 4
 
     with open(Path('DDSHeader.ugctex'), 'rb') as file:
         dds_header = file.read()
