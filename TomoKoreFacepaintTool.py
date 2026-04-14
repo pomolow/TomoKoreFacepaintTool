@@ -100,6 +100,25 @@ def ugctex_2_png(img):
     img.save(save_path, 'png')
     print(f'Image file saved to {save_path}')
 
+def ugctex_thumb_2_png(img):
+    convert_size = (512, 512)
+    gob_w, gob_h = 4, 4
+    bytes_per_block = 8
+
+    with open(Path('DDSHeader.ugctex'), 'rb') as file:
+        dds_header = file.read()
+
+    swizzled = nsw_deswizzle(raw_data, convert_size, (gob_w, gob_h), bytes_per_block, SWIZZLE_MODE)
+
+    img = Image.open(io.BytesIO(dds_header + swizzled))
+    img = img.convert()
+    img = gammaedit(img)
+    img.show()
+
+    save_path = imagePath.with_name(imagePath.stem + "UgcTexOUTPUT.png")
+    img.save(save_path, 'png')
+    print(f'Image file saved to {save_path}')
+
 
 def png_2_ugctex(imagePath, useSrgb=False):
     image_res = 0
@@ -178,6 +197,9 @@ while True:
                 elif len(raw_data) == 131072:
                     print('UgcTex file detected.')
                     ugctex_2_png(raw_data)
+                elif len(raw_data) == 65536:
+                    print('UgcTex Thumb file detected.')
+                    ugctex_thumb_2_png(raw_data)
                 else:
                     print('Size of file does not match Canvas nor UgcTex files. Please check your file again.')
         elif select == 2:
