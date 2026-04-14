@@ -100,21 +100,17 @@ def ugctex_2_png(img):
     img.save(save_path, 'png')
     print(f'Image file saved to {save_path}')
 
-def ugctex_thumb_2_png(img):
+def ugctex_thumb_2_png(raw_data):  # rename param to raw_data
     convert_size = (512, 512)
     gob_w, gob_h = 4, 4
     bytes_per_block = 4
-
     with open(Path('DDSHeader.ugctex'), 'rb') as file:
         dds_header = file.read()
-
     swizzled = nsw_deswizzle(raw_data, convert_size, (gob_w, gob_h), bytes_per_block, SWIZZLE_MODE)
-
     img = Image.open(io.BytesIO(dds_header + swizzled))
-    img = img.convert()
+    img = img.convert("RGBA")  # DXT1 → RGBA
     img = gammaedit(img)
     img.show()
-
     save_path = imagePath.with_name(imagePath.stem + "UgcTexOUTPUT.png")
     img.save(save_path, 'png')
     print(f'Image file saved to {save_path}')
